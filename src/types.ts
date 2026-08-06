@@ -29,7 +29,7 @@ export type PageId =
   | 'schema';
 
 // ==========================================
-// SPACEFLOW COWORKING MANAGEMENT TYPES
+// BIZOS GMAO & CAFM TYPES
 // ==========================================
 
 export interface GoogleAuthUser {
@@ -144,7 +144,7 @@ export interface VisitorPass {
   purpose?: string;
 }
 
-export interface SpaceflowKPIs {
+export interface BizosKPIs {
   totalMembers: number;
   occupancyRatePercent: number;
   monthlyRecurringRevenueEur: number;
@@ -155,7 +155,7 @@ export interface SpaceflowKPIs {
   totalInvoicesPendingEur: number;
 }
 
-export interface SpaceflowAIPrediction {
+export interface BizosAIPrediction {
   predictionId: string;
   confidenceScore: number;
   summary: string;

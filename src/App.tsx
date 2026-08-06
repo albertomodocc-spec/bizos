@@ -24,6 +24,7 @@ import { SupportPage } from './components/pages/SupportPage';
 import { LoginPage } from './components/pages/LoginPage';
 import { Footer } from './components/Footer';
 import { LanguageProvider } from './context/LanguageContext';
+import { AuthProvider } from './context/AuthContext';
 
 export function App() {
   const [activePage, setActivePage] = useState<PageId>('home');
@@ -44,7 +45,7 @@ export function App() {
 
   useEffect(() => {
     // Check local storage for existing Google OAuth session
-    const saved = localStorage.getItem('spaceflow_google_user');
+    const saved = localStorage.getItem('bizos_google_user');
     if (saved) {
       try {
         const user = JSON.parse(saved);
@@ -109,17 +110,18 @@ export function App() {
   };
 
   const handleLogoutGoogle = () => {
-    localStorage.removeItem('spaceflow_google_user');
+    localStorage.removeItem('bizos_google_user');
     setGoogleUser(null);
     setIsLoggedIn(false);
     setActivePage('home');
   };
 
   return (
-    <LanguageProvider language={language} onLanguageChange={handleLanguageChange}>
+    <AuthProvider>
+      <LanguageProvider language={language} onLanguageChange={handleLanguageChange}>
       <div className="min-h-screen transition-colors font-sans selection:bg-[#d946ef] selection:text-white flex flex-col justify-between bizos-bg bizos-honeycomb text-[#e2e8f0]">
         
-        {/* SPACEFLOW Header Navigation */}
+        {/* BizOS Header Navigation */}
         <SpaceflowHeader
           currentPage={activePage}
           setCurrentPage={handleNavigate}
@@ -219,15 +221,16 @@ export function App() {
           )}
 
           {activePage === 'login' && (
-            <LoginPage onNavigate={handleNavigate} language={language} brand="SPACEFLOW" />
+            <LoginPage onNavigate={handleNavigate} language={language} brand="BizOS GMAO" />
           )}
         </main>
 
         {/* Footer */}
-        <Footer onNavigate={handleNavigate} language={language} brand="SPACEFLOW" />
+        <Footer onNavigate={handleNavigate} language={language} brand="BizOS GMAO" />
 
       </div>
     </LanguageProvider>
+  </AuthProvider>
   );
 }
 
