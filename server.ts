@@ -5,6 +5,24 @@ import { createServer as createViteServer } from 'vite';
 export const app = express();
 app.use(express.json());
 
+// Enable CORS for Vercel deployment domain & WordPress clients
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 // ==========================================
 // SPACEFLOW COWORKING DATABASE STORE & APIS
 // ==========================================
@@ -1229,10 +1247,10 @@ Question/Prompt de l'utilisateur: ${prompt}`,
     res.send(`Contact: mailto:security@bizos.app
 Expires: 2026-12-31T23:59:59.000Z
 Preferred-Languages: fr, en
-Canonical: https://bizos.app/.well-known/security.txt
-Policy: https://bizos.app/security
-Hiring: https://bizos.app/careers
-Encryption: https://bizos.app/pgp-key.asc`);
+Canonical: https://bizos.ricecloud.net/.well-known/security.txt
+Policy: https://bizos.ricecloud.net/security
+Hiring: https://bizos.ricecloud.net/careers
+Encryption: https://bizos.ricecloud.net/pgp-key.asc`);
   });
 
   // ==========================================
@@ -1357,7 +1375,7 @@ Encryption: https://bizos.app/pgp-key.asc`);
       customerEmail: 'albertomodo.cc@gmail.com',
       status: 'active',
       domainLimit: 5,
-      domains: ['wordpress.local', 'demo.bizos.app'],
+      domains: ['wordpress.local', 'bizos.ricecloud.net', 'demo.bizos.app'],
       expiresAt: '2027-12-31T23:59:59.000Z',
       billingCycle: 'annual',
       amountCents: 14900,
@@ -1515,7 +1533,7 @@ Encryption: https://bizos.app/pgp-key.asc`);
         auditor: 'Cure53 / Security Team',
         score: 98,
         findings: { critical: 0, high: 0, medium: 0, low: 1 },
-        report_url: 'https://bizos.app/security/owasp-report.pdf'
+        report_url: 'https://bizos.ricecloud.net/security/owasp-report.pdf'
       },
       compliance: {
         gdpr: { status: 'compliant', verified: true, article25: true, article32: true },
@@ -1526,7 +1544,7 @@ Encryption: https://bizos.app/pgp-key.asc`);
       },
       incidents: { last_30d: 0, last_90d: 0, all_time: 0 },
       uptime: { last_30d: 99.99, slo_target: 99.95 },
-      security_txt: 'https://bizos.app/.well-known/security.txt',
+      security_txt: 'https://bizos.ricecloud.net/.well-known/security.txt',
       last_updated: new Date().toISOString()
     });
   });

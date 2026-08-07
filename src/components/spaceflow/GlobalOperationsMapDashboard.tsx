@@ -214,13 +214,26 @@ export const GlobalOperationsMapDashboard: React.FC = () => {
 
   // Initialize Leaflet Map dynamically
   useEffect(() => {
+    let isMounted = true;
     let leafletMap: any = null;
 
     const initMap = async () => {
-      if (!mapContainerRef.current || mapInstanceRef.current) return;
+      if (!mapContainerRef.current) return;
 
       try {
         const L = (await import('leaflet')).default;
+
+        if (!isMounted || !mapContainerRef.current) return;
+
+        // Clean up any existing map instance or stale DOM _leaflet_id
+        if (mapInstanceRef.current) {
+          mapInstanceRef.current.remove();
+          mapInstanceRef.current = null;
+        }
+
+        if ((mapContainerRef.current as any)._leaflet_id) {
+          (mapContainerRef.current as any)._leaflet_id = null;
+        }
 
         // Custom marker icons
         const createCustomIcon = (status: 'operational' | 'panne' | 'intervention') => {
@@ -275,6 +288,13 @@ export const GlobalOperationsMapDashboard: React.FC = () => {
           zoom: 4,
           zoomControl: false,
         });
+
+        if (!isMounted) {
+          leafletMap.remove();
+          return;
+        }
+
+        mapInstanceRef.current = leafletMap;
 
         // Dark Map Tiles
         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
@@ -333,8 +353,9 @@ export const GlobalOperationsMapDashboard: React.FC = () => {
           }).addTo(leafletMap);
         });
 
-        mapInstanceRef.current = leafletMap;
-        setMapLoaded(true);
+        if (isMounted) {
+          setMapLoaded(true);
+        }
       } catch (err) {
         console.error('Failed to load Leaflet map:', err);
       }
@@ -343,9 +364,13 @@ export const GlobalOperationsMapDashboard: React.FC = () => {
     initMap();
 
     return () => {
+      isMounted = false;
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
+      }
+      if (mapContainerRef.current && (mapContainerRef.current as any)._leaflet_id) {
+        (mapContainerRef.current as any)._leaflet_id = null;
       }
     };
   }, []);

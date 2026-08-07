@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Bizos_License {
 
-    private const API_BASE = 'https://bizos.app/api';
+    private const API_BASE = 'https://bizos.ricecloud.net/api';
     private const TRANSIENT_KEY = 'bizos_license_data';
     private const GRACE_PERIOD_HOURS = 24;
     private const CACHE_DURATION = 43200; // 12 hours

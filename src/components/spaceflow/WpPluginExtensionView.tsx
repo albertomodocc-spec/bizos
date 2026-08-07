@@ -649,10 +649,10 @@ class Bizos_2FA {
 {`Contact: mailto:security@bizos.app
 Expires: 2026-12-31T23:59:59.000Z
 Preferred-Languages: fr, en
-Canonical: https://bizos.app/.well-known/security.txt
-Policy: https://bizos.app/security
-Hiring: https://bizos.app/careers
-Encryption: https://bizos.app/pgp-key.asc`}
+Canonical: https://bizos.ricecloud.net/.well-known/security.txt
+Policy: https://bizos.ricecloud.net/security
+Hiring: https://bizos.ricecloud.net/careers
+Encryption: https://bizos.ricecloud.net/pgp-key.asc`}
               </pre>
             </div>
           </div>
