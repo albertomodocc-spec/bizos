@@ -16,6 +16,7 @@ import { TodayDashboardView } from './components/spaceflow/TodayDashboardView';
 import { ExitReadyView } from './components/spaceflow/ExitReadyView';
 import { CallCopilotView } from './components/spaceflow/CallCopilotView';
 import { SchemaView } from './components/spaceflow/SchemaView';
+import { WpPluginExtensionView } from './components/spaceflow/WpPluginExtensionView';
 import { GoogleAuthGateModal } from './components/spaceflow/GoogleAuthGateModal';
 
 import { ArchitecturePage } from './components/pages/ArchitecturePage';
@@ -206,6 +207,10 @@ export function App() {
 
           {activePage === 'schema' && (
             <SchemaView isDarkMode={isDarkMode} setCurrentPage={handleNavigate} />
+          )}
+
+          {activePage === 'wp_plugin' && (
+            <WpPluginExtensionView />
           )}
 
           {activePage === 'pricing' && (

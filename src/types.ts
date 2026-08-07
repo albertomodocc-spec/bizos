@@ -26,7 +26,8 @@ export type PageId =
   | 'inbox_ai'
   | 'call_copilot'
   | 'exit_ready'
-  | 'schema';
+  | 'schema'
+  | 'wp_plugin';
 
 // ==========================================
 // BIZOS GMAO & CAFM TYPES

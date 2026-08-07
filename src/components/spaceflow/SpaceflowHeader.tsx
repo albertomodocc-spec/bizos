@@ -134,6 +134,14 @@ export const SpaceflowHeader: React.FC<SpaceflowHeaderProps> = ({
                   <span>{t('navSchema')}</span>
                   <span className="text-[10px] bg-white/10 text-slate-300 px-2 py-0.5 rounded-full font-mono">Nexus</span>
                 </button>
+
+                <button
+                  onClick={() => { setCurrentPage('wp_plugin'); setSolutionsOpen(false); }}
+                  className="w-full text-left px-3 py-2 rounded-xl bg-gradient-to-r from-[#d946ef]/30 to-[#f472b6]/20 border border-[#f472b6]/40 hover:border-[#f472b6] transition-all flex items-center justify-between text-xs text-white group font-bold shadow-sm"
+                >
+                  <span className="text-white group-hover:text-[#f472b6]">🔌 Plugin WordPress (.ZIP)</span>
+                  <span className="text-[10px] bg-[#f472b6] text-black px-2 py-0.5 rounded-full font-mono font-black animate-pulse">v2.1.0</span>
+                </button>
               </div>
             )}
           </div>
