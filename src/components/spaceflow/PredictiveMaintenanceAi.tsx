@@ -51,6 +51,65 @@ export const PredictiveMaintenanceAi: React.FC = () => {
     },
   ]);
   const [isAiThinking, setIsAiThinking] = useState<boolean>(false);
+  const [isRunningDeepAnalysis, setIsRunningDeepAnalysis] = useState<boolean>(false);
+
+  const handleRunDeepAiAnalysis = async () => {
+    setIsRunningDeepAnalysis(true);
+    try {
+      const res = await fetch('/api/gmao/predictive-analysis', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          asset: {
+            id: 'ELEV-01',
+            name: 'Variateur Ascenseur Cabine Nord',
+            type: 'ELEVATOR_DRIVE',
+            manufacturer: 'Schneider Electric',
+            model: 'Altivar 630',
+            location: 'Étage 5 • Gain Moteur',
+            healthScore: 68
+          },
+          telemetry: [
+            { timestamp: new Date().toISOString(), value: 65.2, sensorId: 'TEMP_MOSFET' },
+            { timestamp: new Date().toISOString(), value: 4.9, sensorId: 'VIB_ACCEL_120HZ' }
+          ]
+        })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.analysis) {
+          const { analysis } = data;
+          const newAnomaly: AnomalyItem = {
+            id: `ANOM-${Math.floor(100 + Math.random() * 900)}`,
+            equipment: 'Variateur Ascenseur Cabine Nord',
+            equipmentId: 'ELEV-01',
+            location: 'Étage 5 • Gain Moteur',
+            riskScore: Math.round(analysis.failureProbability * 100),
+            cause: analysis.reasoning,
+            recommendation: analysis.recommendations?.[0]?.action || 'Inspection immédiate requise.',
+            status: analysis.riskLevel === 'CRITICAL' ? 'Critical' : 'Warning'
+          };
+
+          setAnomalies(prev => [newAnomaly, ...prev]);
+
+          const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          setChatMessages(prev => [
+            ...prev,
+            {
+              sender: 'ai',
+              text: `[Deep Analysis Gemini 3.6-Flash Complete]\nHealth Score: ${analysis.healthScore}/100\nFailure Risk: ${(analysis.failureProbability * 100).toFixed(1)}%\n${analysis.reasoning}`,
+              time: timeNow
+            }
+          ]);
+        }
+      }
+    } catch (err) {
+      console.warn('Deep analysis error:', err);
+    } finally {
+      setIsRunningDeepAnalysis(false);
+    }
+  };
 
   const handleDispatchWorkOrder = (anomaly: AnomalyItem) => {
     // Save order to shared store so FieldTech Mobile and Dashboard see it immediately
@@ -134,9 +193,17 @@ export const PredictiveMaintenanceAi: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2">
+          <button
+            onClick={handleRunDeepAiAnalysis}
+            disabled={isRunningDeepAnalysis}
+            className="px-4 py-2 rounded-xl bizos-cta-pink text-white text-xs font-semibold cursor-pointer shadow-lg flex items-center gap-2 hover:scale-105 transition-all disabled:opacity-50"
+          >
+            <Sparkles className={`w-4 h-4 ${isRunningDeepAnalysis ? 'animate-spin' : ''}`} />
+            <span>{isRunningDeepAnalysis ? 'Inférence Gemini...' : 'Lancer Analyse Gemini 3.6-Flash'}</span>
+          </button>
           <span className="px-3 py-1.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-mono font-semibold flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            Inférence ML Continue Active
+            Inférence ML Active
           </span>
         </div>
       </div>

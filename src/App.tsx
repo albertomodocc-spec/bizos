@@ -18,6 +18,11 @@ import { CallCopilotView } from './components/spaceflow/CallCopilotView';
 import { SchemaView } from './components/spaceflow/SchemaView';
 import { WpPluginExtensionView } from './components/spaceflow/WpPluginExtensionView';
 import { GoogleAuthGateModal } from './components/spaceflow/GoogleAuthGateModal';
+import { CafmGmaoDashboard } from './components/spaceflow/CafmGmaoDashboard';
+import { SuperAdminDashboard } from './components/admin/SuperAdminDashboard';
+import { UsersManagementPage } from './components/admin/UsersManagementPage';
+import { EnvironmentsPage } from './components/admin/EnvironmentsPage';
+import { CAFMPage } from './components/admin/CAFMPage';
 
 import { ArchitecturePage } from './components/pages/ArchitecturePage';
 import { PricingPage } from './components/pages/PricingPage';
@@ -207,6 +212,23 @@ export function App() {
 
           {activePage === 'schema' && (
             <SchemaView isDarkMode={isDarkMode} setCurrentPage={handleNavigate} />
+          )}
+
+          {activePage === 'cafm_gmao' && (
+            <CafmGmaoDashboard />
+          )}
+
+          {activePage === 'admin_super' && (
+            <SuperAdminDashboard setCurrentPage={handleNavigate} />
+          )}
+          {activePage === 'admin_users' && (
+            <UsersManagementPage />
+          )}
+          {activePage === 'admin_environments' && (
+            <EnvironmentsPage />
+          )}
+          {activePage === 'admin_cafm' && (
+            <CAFMPage />
           )}
 
           {activePage === 'wp_plugin' && (

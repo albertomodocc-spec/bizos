@@ -88,6 +88,22 @@ export const SpaceflowHeader: React.FC<SpaceflowHeaderProps> = ({
             {solutionsOpen && (
               <div className="absolute top-full left-0 mt-2 w-64 rounded-2xl bg-[#140826]/95 backdrop-blur-xl border border-[#d946ef]/40 p-2 shadow-[0_10px_30px_rgba(0,0,0,0.8),0_0_20px_rgba(217,70,239,0.2)] z-50 animate-fade-in space-y-1">
                 <button
+                  onClick={() => { setCurrentPage('cafm_gmao'); setSolutionsOpen(false); }}
+                  className="w-full text-left px-3 py-2 rounded-xl hover:bg-[#d946ef]/20 transition-colors flex items-center justify-between text-xs text-white group"
+                >
+                  <span className="font-semibold text-[#f472b6] group-hover:text-white">CAFM Dashboard</span>
+                  <span className="text-[10px] bg-[#d946ef]/30 text-white px-2 py-0.5 rounded-full font-mono">GMAO</span>
+                </button>
+
+                <button
+                  onClick={() => { setCurrentPage('admin_super'); setSolutionsOpen(false); }}
+                  className="w-full text-left px-3 py-2 rounded-xl hover:bg-[#d946ef]/20 transition-colors flex items-center justify-between text-xs text-white group"
+                >
+                  <span className="font-semibold text-[#f472b6] group-hover:text-white">Super Admin Hub</span>
+                  <span className="text-[10px] bg-red-500/30 text-white px-2 py-0.5 rounded-full font-mono">ROOT</span>
+                </button>
+
+                <button
                   onClick={() => { setCurrentPage('today'); setSolutionsOpen(false); }}
                   className="w-full text-left px-3 py-2 rounded-xl hover:bg-[#d946ef]/20 transition-colors flex items-center justify-between text-xs text-white group"
                 >

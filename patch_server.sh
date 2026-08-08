@@ -1,3 +1,5 @@
+#!/bin/bash
+cat << 'SERVER_EOF' > server.ts
 import express from 'express';
 import path from 'path';
 import { createServer as createViteServer } from 'vite';
@@ -112,3 +114,4 @@ if (process.env.VERCEL !== '1' && process.env.IS_VERCEL !== 'true') {
 }
 
 export default app;
+SERVER_EOF

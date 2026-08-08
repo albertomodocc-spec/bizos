@@ -1,6 +1,11 @@
 export type PageId =
   | 'home'
   | 'dashboard'
+  | 'cafm_gmao'
+  | 'admin_super'
+  | 'admin_users'
+  | 'admin_environments'
+  | 'admin_cafm'
   | 'today'
   | 'members'
   | 'bookings'

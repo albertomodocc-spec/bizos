@@ -4,6 +4,7 @@ import {
   MapPin, Clock, Camera, PenTool, AlertTriangle, ShieldCheck, Trash2
 } from 'lucide-react';
 import { useFieldTechStore, WorkOrder } from '../../services/fieldTechStore';
+import { QrScannerModal } from './QrScannerModal';
 
 export const FieldTechMobileView: React.FC = () => {
   const { workOrders, updateWorkOrder, addWorkOrder } = useFieldTechStore();
@@ -363,6 +364,17 @@ export const FieldTechMobileView: React.FC = () => {
             </button>
           </div>
         </div>
+      )}
+
+      {/* Real Camera QR Scanner Modal */}
+      {showQrModal && (
+        <QrScannerModal
+          onScan={(scanned) => {
+            setScannedEquipment(scanned);
+            setShowQrModal(false);
+          }}
+          onClose={() => setShowQrModal(false)}
+        />
       )}
 
     </div>
