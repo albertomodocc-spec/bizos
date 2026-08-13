@@ -37,11 +37,31 @@ service cloud.firestore {
       allow read, write: if true;
     }
 
+    match /ecoasset_bookings/{bookingId} {
+      allow read, write: if true;
+    }
+
+    match /ecoasset_seats/{seatId} {
+      allow read, write: if true;
+    }
+
+    match /ecoasset_logs/{logId} {
+      allow read, write: if true;
+    }
+
+    match /ecoasset_venues/{venueId} {
+      allow read, write: if true;
+    }
+
     match /members/{memberId} {
       allow read, write: if true;
     }
 
     match /visitors/{visitorId} {
+      allow read, write: if true;
+    }
+
+    match /stadiums/{stadiumId} {
       allow read, write: if true;
     }
   }

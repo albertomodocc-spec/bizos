@@ -17,6 +17,10 @@ import { ExitReadyView } from './components/spaceflow/ExitReadyView';
 import { CallCopilotView } from './components/spaceflow/CallCopilotView';
 import { SchemaView } from './components/spaceflow/SchemaView';
 import { WpPluginExtensionView } from './components/spaceflow/WpPluginExtensionView';
+import { EcoAssetPluginView } from './components/spaceflow/EcoAssetPluginView';
+import { EsportArenaView } from './components/spaceflow/EsportArenaView';
+import { VenueManagementView } from './components/spaceflow/VenueManagementView';
+import { StadiumManagementView } from './components/spaceflow/StadiumManagementView';
 import { GoogleAuthGateModal } from './components/spaceflow/GoogleAuthGateModal';
 import { CafmGmaoDashboard } from './components/spaceflow/CafmGmaoDashboard';
 import { SuperAdminDashboard } from './components/admin/SuperAdminDashboard';
@@ -153,7 +157,7 @@ export function App() {
         )}
 
         {/* Main Content Area */}
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+        <main className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full ${['venue_management', 'arena_esport', 'stadium_management'].includes(activePage) ? 'max-w-none px-0 sm:px-0 lg:px-0 py-0' : ''}`}>
           {activePage === 'home' && (
             <PublicHomePage isDarkMode={isDarkMode} setCurrentPage={handleNavigate} />
           )}
@@ -233,6 +237,21 @@ export function App() {
 
           {activePage === 'wp_plugin' && (
             <WpPluginExtensionView />
+          )}
+
+          {activePage === 'ecoasset_plugin' && (
+            <EcoAssetPluginView />
+          )}
+
+          {activePage === 'arena_esport' && (
+            <EsportArenaView />
+          )}
+
+          {activePage === 'venue_management' && (
+            <VenueManagementView />
+          )}
+          {activePage === 'stadium_management' && (
+            <StadiumManagementView />
           )}
 
           {activePage === 'pricing' && (

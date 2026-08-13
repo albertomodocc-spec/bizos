@@ -80,27 +80,6 @@ export const PublicHomePage: React.FC<PublicHomePageProps> = ({ setCurrentPage }
               {t('heroSubtitle')}
             </p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <button
-                onClick={() => setCurrentPage('pricing')}
-                className="px-7 py-3.5 rounded-2xl text-sm font-bold text-slate-950 bg-gradient-to-r from-[#f472b6] via-[#d946ef] to-[#fb923c] hover:opacity-95 transition-all cursor-pointer shadow-[0_0_25px_rgba(244,114,182,0.4)] flex items-center gap-2 hover:scale-[1.02] active:scale-95"
-              >
-                <span>{t('heroTryFree')}</span>
-                <ArrowRight className="w-4 h-4 text-slate-950" />
-              </button>
-
-              <button
-                onClick={() => setShowDemoModal(true)}
-                className="px-6 py-3.5 rounded-2xl text-sm font-semibold text-white bg-[#1a0c33]/80 border border-white/20 hover:border-[#f472b6] hover:bg-white/10 transition-all cursor-pointer flex items-center gap-2"
-              >
-                <div className="w-5 h-5 rounded-full border border-white/40 flex items-center justify-center text-white text-[10px]">
-                  <Play className="w-2.5 h-2.5 fill-white translate-x-0.5" />
-                </div>
-                <span>{t('heroWatchDemo')}</span>
-              </button>
-            </div>
-
           </div>
 
           {/* Right Hero Graphic */}

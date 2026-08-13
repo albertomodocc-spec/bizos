@@ -126,9 +126,67 @@
         "status": { "type": "string" }
       },
       "required": ["id", "authorName", "authorRole", "category", "title", "content", "timestamp"]
+    },
+    "EcoAssetBooking": {
+      "title": "EcoAsset Booking",
+      "description": "Ticketing reservation record with QR code and checkin status",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "ticketCode": { "type": "string" },
+        "eventName": { "type": "string" },
+        "venueName": { "type": "string" },
+        "eventDate": { "type": "string" },
+        "eventTime": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerEmail": { "type": "string" },
+        "seats": { "type": "array" },
+        "totalPrice": { "type": "number" },
+        "status": { "type": "string", "enum": ["CONFIRMED", "CHECKED_IN", "CANCELLED"] },
+        "paymentMethod": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "checkedInAt": { "type": "string" }
+      },
+      "required": ["id", "ticketCode", "eventName", "seats", "totalPrice", "status", "createdAt"]
+    },
+    "EcoAssetSeat": {
+      "title": "EcoAsset Seat",
+      "description": "Seat reservation status on 3D stage map",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "section": { "type": "string" },
+        "row": { "type": "string" },
+        "seatNum": { "type": "number" },
+        "type": { "type": "string" },
+        "price": { "type": "number" },
+        "status": { "type": "string", "enum": ["available", "occupied", "selected"] },
+        "bookedBy": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "section", "price", "status"]
+    },
+    "StadiumEntity": {
+      "title": "Stadium Entity",
+      "description": "Stadium definitions including capacity, sectors, and floor plan image",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "seatingCapacity": { "type": "number" },
+        "floorPlanImage": { "type": "string" },
+        "sectors": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "seatingCapacity"]
     }
   },
   "firestore": {
+    "/stadiums/{stadiumId}": {
+      "schema": "StadiumEntity",
+      "description": "Collection of stadium entities"
+    },
     "/users/{userId}": {
       "schema": "UserProfile",
       "description": "Collection of user profiles and roles"
@@ -156,6 +214,14 @@
     "/collaborator_entries/{entryId}": {
       "schema": "CollaboratorEntry",
       "description": "Real-time records entered by admin or collaborators"
+    },
+    "/ecoasset_bookings/{bookingId}": {
+      "schema": "EcoAssetBooking",
+      "description": "Real-time ticketing bookings and check-in status"
+    },
+    "/ecoasset_seats/{seatId}": {
+      "schema": "EcoAssetSeat",
+      "description": "3D Arena seating real-time occupancy status"
     }
   }
 }

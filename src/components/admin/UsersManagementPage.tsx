@@ -77,13 +77,14 @@ export function UsersManagementPage() {
       <div className="space-y-6">
         {Object.entries(groupedByRole).map(([role, roleUsers]) => {
           const config = ROLE_LABELS[role];
+          const usersList = roleUsers as any[];
           return (
             <div key={role} className="bg-gray-900/30 backdrop-blur rounded-2xl border border-gray-800 p-5">
               <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
                 <span className="text-2xl">{config?.icon}</span> {config?.label}
               </h2>
               <div className="grid grid-cols-2 gap-3">
-                {roleUsers.map(u => (
+                {usersList.map(u => (
                   <UserCard key={u.id} user={u} environments={environments} onEdit={() => setEditingUser(u)} roleLabel={ROLE_LABELS[u.role] || ROLE_LABELS.COLLABORATOR} compact />
                 ))}
               </div>

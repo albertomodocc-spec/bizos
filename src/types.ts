@@ -32,7 +32,11 @@ export type PageId =
   | 'call_copilot'
   | 'exit_ready'
   | 'schema'
-  | 'wp_plugin';
+  | 'wp_plugin'
+  | 'ecoasset_plugin'
+  | 'arena_esport'
+  | 'venue_management'
+  | 'stadium_management';
 
 // ==========================================
 // BIZOS GMAO & CAFM TYPES
